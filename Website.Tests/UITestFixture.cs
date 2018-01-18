@@ -1,14 +1,15 @@
 ﻿using Atata;
-using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtataUITests1
 {
-    [TestFixture]
     public class UITestFixture
     {
-        [SetUp]
+        public TestContext TestContext { get; set; }
+
+        [TestInitialize]        
         public void SetUp()
         {
             ChromeOptions options = new ChromeOptions();
@@ -22,17 +23,12 @@ namespace AtataUITests1
                     WithFixOfCommandExecutionDelay().
                     WithLocalDriverPath().
                 UseBaseUrl("https://www.visualstudio.com/team-services/").
-                UseCulture("en-us").
-                UseNUnitTestName().
-                AddScreenshotFileSaving().
-                        WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}\{AtataContext.Current.TestName}").
-                AddNUnitTestContextLogging().
-                LogNUnitError().
-                TakeScreenshotOnNUnitError().
+                UseTestName(TestContext.TestName).
+                AddTraceLogging().
                 Build();
         }
 
-        [TearDown]
+        [TestCleanup]
         public void TearDown()
         {
             AtataContext.Current.CleanUp();

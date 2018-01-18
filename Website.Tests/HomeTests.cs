@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using NUnit.Framework;
 using Atata;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtataUITests1
 {
+    [TestClass]
     public class HomeTests : UITestFixture
     {
-        [Test]
-        [Category("Smoke")]
+        [TestMethod]
+        [TestCategory("Smoke")]
         public void Home()
         {
             Go.To<HomePage>()
